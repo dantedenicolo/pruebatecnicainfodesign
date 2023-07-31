@@ -1,11 +1,14 @@
 var mysql = require('mysql');
+require('dotenv').config();
+
+const DB_PASSWORD = process.env.DB_PASSWORD;
 
 //Configuración
 var mysqlConn = mysql.createConnection({
-    host: 'localhost',
-    database: 'pruebainfodesign',
-    user: 'root',
-    password: ''
+  host: 'localhost',
+  database: 'pruebainfodesign',
+  user: 'root',
+  password: DB_PASSWORD,
 });
 
 //Conexión
