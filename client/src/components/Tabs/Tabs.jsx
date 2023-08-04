@@ -6,7 +6,7 @@ const Tabs = () => {
   // };
 
   return (
-    <div className="fixed top-0 w-70% mx-auto bg-white p-4 shadow  dark:bg-indigo-600 dark:text-white">
+    <div className="fixed top-64 w-70% mx-auto bg-white p-4 shadow  dark:bg-indigo-600 dark:text-white">
       {/* <AppBar position="static">
         <Tabs value={activeTab} onChange={handleTabChange}>
           <Tab label="Tab 1" />

@@ -1,13 +1,20 @@
-import { SideBar, Tabs } from '../../components';
+import React from 'react';
+import { Dashboard, SideBar } from '../../components';
+
 
 
 const Home = () => {
+  
+
   return (
-    <>
-      <Tabs />
-      <h1>Home</h1>
-      <SideBar />
-    </>
+    <div className="grid grid-cols-sidebar-dashboard">
+      <div>
+        <SideBar className="col-sidebar" />
+      </div>
+      <div>
+        <Dashboard className="col-dashboard" />
+      </div>
+    </div>
   );
 };
 
