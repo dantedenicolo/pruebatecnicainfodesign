@@ -1,14 +1,15 @@
-import { Carousel, Footer, HeaderLanding } from '../../components';
-
+import { Carousel, Footer, HeaderLanding } from '../../components'
 
 const Landing = () => {
   return (
     <div>
       <HeaderLanding />
-      <Carousel/>
+      <div className='flex items-center justify-center h-screen'>
+        <Carousel />
+      </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing
