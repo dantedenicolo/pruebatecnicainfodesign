@@ -1,17 +1,31 @@
-import { Card, Title, DonutChart } from '@tremor/react';
+import { InformationCircleIcon } from '@heroicons/react/solid';
+import { Card, Title, DonutChart, Icon, Flex } from '@tremor/react';
 
-
-const DonutChartTramos = ({tramosData}) => {
+const DonutChartTramos = ({ tramosData }) => {
+  if (!Array.isArray(tramosData)) {
+    return null;
+  }
   const valueFormatter = (number) =>
     `${Intl.NumberFormat('us').format(number).toString()}`;
-  
+
   return (
-    <div>
-      <div className="h-96">
-        <Card className="max-w-lg">
-          <Title>Consumos</Title>
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="col-span-1">
+        <Card className="max-w-lg" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Consumos</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Consumo de Energia en KWh en cada tramo"
+            />
+          </Flex>
           <DonutChart
-            className="mt-6"
+            className="mt-4"
             data={tramosData.map((item) => ({
               Linea: item.Linea,
               Consumo: item.consumo,
@@ -23,11 +37,22 @@ const DonutChartTramos = ({tramosData}) => {
           />
         </Card>
       </div>
-      <div className="h-96">
-        <Card className="max-w-lg">
-          <Title>Perdidas</Title>
+      <div className="col-span-1">
+        <Card className="max-w-lg" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Perdidas</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Perdidas de Energia en KWh en cada tramo"
+            />
+          </Flex>
           <DonutChart
-            className="mt-6"
+            className="mt-4"
             data={tramosData.map((item) => ({
               Linea: item.Linea,
               Perdidas: item.perdidas,
@@ -39,11 +64,22 @@ const DonutChartTramos = ({tramosData}) => {
           />
         </Card>
       </div>
-      <div className="h-96">
-        <Card className="max-w-lg">
-          <Title>Costos</Title>
+      <div className="col-span-1">
+        <Card className="max-w-lg" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Costos</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Costo de Energia en $ en cada tramo"
+            />
+          </Flex>
           <DonutChart
-            className="mt-6"
+            className="mt-4"
             data={tramosData.map((item) => ({
               Linea: item.Linea,
               Costos: item.costo,
@@ -55,11 +91,22 @@ const DonutChartTramos = ({tramosData}) => {
           />
         </Card>
       </div>
-      <div className="h-96">
-        <Card className="max-w-lg">
-          <Title>Costo Perdidas</Title>
+      <div className="col-span-1">
+        <Card className="max-w-lg" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Costo Perdidas</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Costo de las perdidas de Energia en $ en cada tramo"
+            />
+          </Flex>
           <DonutChart
-            className="mt-6"
+            className="mt-4"
             data={tramosData.map((item) => ({
               Linea: item.Linea,
               Costos: item.costo * item.perdidas,

@@ -1,12 +1,14 @@
+import { InformationCircleIcon } from '@heroicons/react/solid';
 import {
-  BadgeDelta,
+  Icon,
   Card,
+  Title,
   Flex,
   Metric,
   ProgressBar,
   Text,
 } from '@tremor/react';
-import { min } from 'date-fns';
+
 
 const getAbbreviatedDay = (dateString) => {
   const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
@@ -21,7 +23,9 @@ const getAbbreviatedDay = (dateString) => {
 };
 
 const KpiCardMaxMinClienteDia = ({ clienteDiaData }) => {
-  console.log('MaxMinClienteDia', clienteDiaData);
+  if (!Array.isArray(clienteDiaData)) {
+    return null;
+  }
 
   const transformData = clienteDiaData.map((item) => {
     return {
@@ -104,48 +108,51 @@ const KpiCardMaxMinClienteDia = ({ clienteDiaData }) => {
 
     return chartData;
   };
-  console.log('transformClienteData', transformChartData());
 
   const transformedChartData = transformChartData();
 
   return (
-    <div>
+    <div className="grid sm:grid-cols-1 gap-4 w-full">
       <div>
-        <Card className="max-w-lg mx-auto">
-          <table>
+        <Card decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Día Máximo Consumo/Línea/Cliente</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Muesta el día de mayor consumo de cada tramo, por cliente, en el rango de fechas seleccionado"
+            />
+          </Flex>
+        </Card>
+        <Card
+          className="max-w-full mx-auto"
+        >
+          <table className="border-collapse w-full mt-2">
             <thead>
               <tr>
-                <th>Tramo</th>
-                <th>Max Consumo Comercial</th>
-                <th>Fecha</th>
-                <th>Max Consumo Industrial</th>
-                <th>Fecha</th>
-                <th>Max Consumo Residencial</th>
-                <th>Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Tramo</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Max Consumo Comercial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Max Consumo Industrial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Max Consumo Residencial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
               </tr>
             </thead>
             <tbody>
               {Object.keys(transformedChartData).map((tramo) => (
-                <tr key={tramo}>
-                  <td>{tramo}</td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoComercial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoComercial.fecha}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoIndustrial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoIndustrial.fecha}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoResidencial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].maxConsumoResidencial.fecha}
-                  </td>
+                <tr key={tramo} className="border-b border-gray-300 dark:border-gray-500">
+                  <td className="py-2 px-4 text-xs">{tramo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoComercial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoComercial.fecha}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoIndustrial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoIndustrial.fecha}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoResidencial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].maxConsumoResidencial.fecha}</td>
                 </tr>
               ))}
             </tbody>
@@ -153,41 +160,45 @@ const KpiCardMaxMinClienteDia = ({ clienteDiaData }) => {
         </Card>
       </div>
       <div>
-        <Card className="max-w-lg mx-auto">
-          <table>
+        <Card decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Día Mínimo Consumo/Línea/Cliente</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Muesta el día de menor consumo de cada tramo, por cliente, en el rango de fechas seleccionado"
+            />
+          </Flex>
+        </Card>
+        <Card
+          className="max-w-full mx-auto"
+        >
+          <table className="border-collapse w-full mt-2">
             <thead>
               <tr>
-                <th>Tramo</th>
-                <th>Min Consumo Comercial</th>
-                <th>Fecha</th>
-                <th>Min Consumo Industrial</th>
-                <th>Fecha</th>
-                <th>Min Consumo Residencial</th>
-                <th>Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Tramo</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Min/Cons Comercial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Min/Cons Industrial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Min/Cons Residencial</th>
+                <th className="py-2 px-4 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100 border-b-2 border-gray-300 dark:border-gray-500">Fecha</th>
               </tr>
             </thead>
             <tbody>
               {Object.keys(transformedChartData).map((tramo) => (
-                <tr key={tramo}>
-                  <td>{tramo}</td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoComercial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoComercial.fecha}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoIndustrial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoIndustrial.fecha}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoResidencial.consumo}
-                  </td>
-                  <td>
-                    {transformedChartData[tramo].minConsumoResidencial.fecha}
-                  </td>
+                <tr key={tramo} className="border-b border-gray-300 dark:border-gray-500">
+                  <td className="py-2 px-4 text-xs">{tramo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoComercial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoComercial.fecha}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoIndustrial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoIndustrial.fecha}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoResidencial.consumo}</td>
+                  <td className="py-2 px-4 text-xs">{transformedChartData[tramo].minConsumoResidencial.fecha}</td>
                 </tr>
               ))}
             </tbody>

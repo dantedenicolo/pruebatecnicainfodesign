@@ -1,8 +1,10 @@
-import {BarList, Card, Title, Flex, Text, Bold } from '@tremor/react';
-
-
+import { InformationCircleIcon } from '@heroicons/react/solid';
+import { BarList, Card, Title, Flex, Text, Bold,Icon} from '@tremor/react';
 
 const BarlistCliente = ({ tramosClienteData }) => {
+  if (!Array.isArray(tramosClienteData)) {
+    return null;
+  }
   // Group data by "Linea" for each type of consumption (Comercial, Industrial, Residencial)
   const comercialData = tramosClienteData.filter(
     (item) => item.TipoConsumo === 'Comercial'
@@ -15,11 +17,22 @@ const BarlistCliente = ({ tramosClienteData }) => {
   );
 
   return (
-    <div>
-      <div>
-        <Card className="max-w-lg">
-          <Title>Comercial</Title>
-          <Flex className="mt-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="mt-6">
+        <Card className="w-80" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Comercial</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Perdidas por Linea Comercial"
+            />
+          </Flex>
+          <Flex className="mt-6">
             <Text>
               <Bold>Linea</Bold>
             </Text>
@@ -30,10 +43,21 @@ const BarlistCliente = ({ tramosClienteData }) => {
           <BarList data={getFormattedData(comercialData)} className="mt-2" />
         </Card>
       </div>
-      <div>
-        <Card className="max-w-lg">
-          <Title>Industrial</Title>
-          <Flex className="mt-4">
+      <div className="mt-6">
+        <Card className="w-80" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Industrial</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Perdidas por Linea Comercial"
+            />
+          </Flex>
+          <Flex className="mt-6">
             <Text>
               <Bold>Linea</Bold>
             </Text>
@@ -44,10 +68,21 @@ const BarlistCliente = ({ tramosClienteData }) => {
           <BarList data={getFormattedData(industrialData)} className="mt-2" />
         </Card>
       </div>
-      <div>
-        <Card className="max-w-lg">
-          <Title>Residencial</Title>
-          <Flex className="mt-4">
+      <div className="mt-6">
+        <Card className="w-80" decoration="top" decorationColor="indigo">
+          <Flex //title
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title>Residencial</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Perdidas por Linea Comercial"
+            />
+          </Flex>
+          <Flex className="mt-6">
             <Text>
               <Bold>Linea</Bold>
             </Text>

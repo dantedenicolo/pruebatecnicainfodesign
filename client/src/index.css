@@ -45,7 +45,7 @@ h1 {
 
 /* Establecemos la cuadrícula con dos columnas */
 .grid-cols-sidebar-dashboard {
-  grid-template-columns: 130px 1fr; /* La primera columna tendrá 200px de ancho y la segunda ocupará el resto */
+  grid-template-columns: 180px 1fr; 
 }
 
 /* Establecemos el ancho fijo para Sidebar */
@@ -53,7 +53,3 @@ h1 {
   width: 130px;
 }
 
-/* Establecemos el ancho para Dashboard */
-.col-dashboard {
-  width: calc(100% - 200px); /* El ancho ocupará el 100% menos el ancho de la columna de Sidebar */
-}

@@ -31,7 +31,9 @@ const dataFormatter = (number) => {
 }
 
 const GraficoTramosDia = ({ tramosDiaData }) => {
-  console.log(tramosDiaData);
+  if (!Array.isArray(tramosDiaData)) {
+    return null;
+  }
 
   const transformData = tramosDiaData.map((item) => {
     return {
@@ -81,24 +83,23 @@ const GraficoTramosDia = ({ tramosDiaData }) => {
   return (
     <>
       <div className="md:flex justify-between">
-        <Card>
+        <Card decoration="top" decorationColor="indigo">
           <Flex //title
             className="space-x-0.5"
             justifyContent="start"
             alignItems="center"
           >
-            <Title> Performance History </Title>
+            <Title> Consumos por Tramo / Dia </Title>
             <Icon
               icon={InformationCircleIcon}
               variant="simple"
-              tooltip="Shows daily increase or decrease of particular domain"
+              tooltip="Muesta el consumo por tramo en el rango de fechas seleccionado"
             />
           </Flex>
-          <Text> Daily change per domain </Text>
         </Card>
       </div>
       {/* web */}
-      <div className="mt-8 hidden sm:block">
+      <div className="mt-6 hidden sm:block">
         <AreaChart
           data={transformChartData()}
           index="Fecha"
@@ -108,15 +109,6 @@ const GraficoTramosDia = ({ tramosDiaData }) => {
           valueFormatter={dataFormatter}
         />
       </div>
-      {/* mobile */}
-      {/* <div className="mt-8 sm:hidden">
-        <AreaChart
-          {...areaChartArgs}
-          startEndOnly={true}
-          showGradient={false}
-          showYAxis={false}
-        />
-      </div> */}
     </>
   );
 };

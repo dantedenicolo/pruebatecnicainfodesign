@@ -38,16 +38,14 @@ const Datepicker = () => {
   };
 
   useEffect(() => {
-    console.log(initialDate)
-    console.log(finalDate)
+    if (initialDate !== '') {
+      setDisabled(false)
+    }
   },[initialDate, finalDate])
-
-  
-  
 
     return (
       <div>
-        <form className="w-100% mx-auto bg-white p-4 shadow  dark:bg-indigo-600 dark:text-white max-md:hidden">
+        <form className="w-100% mx-auto bg-gray-50 p-4 shadow  dark:bg-indigo-600 dark:text-white max-md:hidden">
           <div className="mb-6 pb-2 border-b border-gray-300 dark:border-gray-700 flex items-center">
             <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
               Selecione el rango de fechas

@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeaderCell,
   TableBody,
-  BadgeDelta,
+  Card,
   Title,
   Flex,
   Select,
@@ -18,7 +18,9 @@ import { InformationCircleIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 
 const TramosDiaTable = ({ tramosDiaData }) => {
-  console.log('TramosDiaData', tramosDiaData);
+  if (!Array.isArray(tramosDiaData)) {
+    return null;
+  }
 
   const [selectedLinea, setSelectedLinea] = useState('all');
   const [selectedFecha, setSelectedFecha] = useState([]); 
@@ -31,18 +33,20 @@ const TramosDiaTable = ({ tramosDiaData }) => {
   return (
     <>
       <div>
-        <Flex
-          className="space-x-0.5"
-          justifyContent="start"
-          alignItems="center"
-        >
-          <Title> Tramos por día </Title>
-          <Icon
-            icon={InformationCircleIcon}
-            variant="simple"
-            tooltip="Shows sales performance per employee"
-          />
-        </Flex>
+        <Card className="mb-4" decoration="top" decorationColor="indigo">
+          <Flex
+            className="space-x-0.5"
+            justifyContent="start"
+            alignItems="center"
+          >
+            <Title> Tramos por día </Title>
+            <Icon
+              icon={InformationCircleIcon}
+              variant="simple"
+              tooltip="Tabla de Consumo, Perdidas y Costo por Tramos por día"
+            />
+          </Flex>
+        </Card>
       </div>
       <div className="flex space-x-2">
         <MultiSelect
@@ -71,24 +75,20 @@ const TramosDiaTable = ({ tramosDiaData }) => {
           <SelectItem value="Tramo 5">Tramo 5</SelectItem>
         </Select>
       </div>
-      <Table className="mt-6">
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Fecha</TableHeaderCell>
-            <TableHeaderCell>Tramos</TableHeaderCell>
-            <TableHeaderCell className="text-right">Consumo</TableHeaderCell>
-            <TableHeaderCell className="text-right">Perdidas</TableHeaderCell>
-            <TableHeaderCell className="text-right">Costo</TableHeaderCell>
-            <TableHeaderCell className="text-right">
-              Costo Total Consumo
-            </TableHeaderCell>
-            <TableHeaderCell className="text-right">
-              Costo Total Perdidas
-            </TableHeaderCell>
+      <Table className="mt-6 overflow-y-auto max-h-[500px]">
+        <TableHead className="sticky top-0">
+          <TableRow className="sticky top-0">
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Fecha</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Tramos</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Consumo</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Perdidas</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Costo</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Costo Total Consumo</TableHeaderCell>
+            <TableHeaderCell className="text-right bg-gray-50 dark:bg-gray-900">Costo Total Perdidas</TableHeaderCell>
           </TableRow>
         </TableHead>
 
-        <TableBody>
+        <TableBody >
           {tramosDiaData
             .filter((item) => isTramosDiaSelected(item))
             .map((item, index) => (
